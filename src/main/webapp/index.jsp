@@ -75,9 +75,9 @@
     }
 %>
 	
-	     <a class="link" href="">View All Records</a>
+	     <a class="link" href="/JSP-CRUD/viewUsers.jsp">View All Records</a>
     <div class="container">
-        <h2>Edit Form</h2>
+        <h2>Registration Form</h2>
         <form action="user" method="post">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>

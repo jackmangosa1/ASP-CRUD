@@ -25,19 +25,22 @@ public class UserDAO {
         }
     }
 
-    public void updateUser(User user) {
+    public boolean updateUser(User user) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();
+            return true; // User updated successfully
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false; // Failed to update user
         }
     }
+
 
     public User getUserById(Long userId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -58,21 +61,34 @@ public class UserDAO {
         }
     }
 
-    public void deleteUser(Long userId) {
+    public boolean deleteUser(Long userId) {
         Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        Session session = null;
+        try {
+            session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            
             User user = session.get(User.class, userId);
             if (user != null) {
                 session.delete(user);
                 transaction.commit();
+                return true; // User deleted successfully
+            } else {
+                return false; // User not found
             }
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
+            return false; // Deletion failed
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
+
+
 }
 

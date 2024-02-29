@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="model.User" %>
+<%@ page import="dao.UserDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +39,14 @@
         .edit-btn:hover, .delete-btn:hover {
             background-color: #497BF8;
         }
+        .link{
+        margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
     <h2>User List</h2>
+    <a class="link"  href="/JSP-CRUD" >Add a New User</a>
     <table>
         <thead>
             <tr>
@@ -55,7 +60,10 @@
         <tbody>
             <%-- Iterate over the list of users and display each user --%>
             <%
-                List<User> userList = (List<User>)request.getAttribute("userList");
+            UserDAO userDAO = new UserDAO();
+            List<User> userList = userDAO.getAllUsers();
+          
+       
                 if(userList != null && !userList.isEmpty()) {
                     for(User user : userList) {
             %>
@@ -65,7 +73,7 @@
                             <td><%= user.getSex() %></td>
                             <td><%= user.getCountry() %></td>
                             <td>
-                                <form action="editUser" method="post" style="display: inline;">
+                                <form action="editUser.jsp" method="post" style="display: inline;">
                                     <input type="hidden" name="userId" value="<%= user.getId() %>">
                                     <button type="submit" class="edit-btn">Edit</button>
                                 </form>
@@ -80,28 +88,12 @@
                 } else {
             %>
                     <tr>
-                        <td colspan="5"></td>
+                        <td colspan="5">No users found</td>
                     </tr>
                     
-                      <tr>
-                            <td>Jack</td>
-                            <td>Mangosa</td>
-                            <td>Male</td>
-                            <td>USA</td>
-                            <td>
-                                <form action="editUser" method="post" style="display: inline;">
-                                    <input type="hidden" name="userId" value=''>
-                                    <button type="submit" class="edit-btn">Edit</button>
-                                </form>
-                                <form action="deleteUser" method="post" style="display: inline;">
-                                    <input type="hidden" name="userId" value="">
-                                    <button type="submit" class="delete-btn">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                  
             <% } %>
         </tbody>
     </table>
-    <a href="/">Add New User</a>
 </body>
 </html>

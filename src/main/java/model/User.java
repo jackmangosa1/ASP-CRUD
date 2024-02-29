@@ -29,6 +29,15 @@ public class User {
     
     public User() {
     }
+    
+    public User(Long id, String name, String password, String email, String sex, String country) {
+    	this.id = id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.sex = sex;
+        this.country = country;
+    }
 
     public User(String name, String password, String email, String sex, String country) {
         this.name = name;
