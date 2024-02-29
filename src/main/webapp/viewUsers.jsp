@@ -42,9 +42,27 @@
         .link{
         margin-bottom: 1rem;
         }
+           .message {
+         	margin: 0 auto;
+         	width: 45rem;
+            background-color: #497BF8;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+<%
+    String message = (String)request.getAttribute("message");
+    if (message != null) {
+%>
+        <p class="message"><%= message %></p>
+<%
+    }
+%>
+	
     <h2>User List</h2>
     <a class="link"  href="/JSP-CRUD" >Add a New User</a>
     <table>

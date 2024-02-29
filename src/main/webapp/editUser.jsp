@@ -51,9 +51,27 @@
         input[type="submit"]:hover {
             background-color: #497BF8;
         }
+           .message {
+         	margin: 0 auto;
+         	width: 45rem;
+            background-color: #497BF8;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+<%
+    String message = (String)request.getAttribute("message");
+    if (message != null) {
+%>
+        <p class="message"><%= message %></p>
+<%
+    }
+%>
+	
     <h2>Edit User</h2>
      <% 
         // Retrieve user ID from the request
